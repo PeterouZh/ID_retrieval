@@ -1,6 +1,6 @@
 import tqdm
-import os
 from PIL import Image
+import torch_fidelity
 
 import torch
 import torchvision.transforms.functional as tv_f
@@ -10,7 +10,6 @@ from tl2 import tl2_utils
 from tl2.proj.fvcore.checkpoint import Checkpointer
 
 from ID_retrieval.models.face_recog_model import Backbone
-
 
 
 def main(
@@ -25,7 +24,7 @@ def main(
   device = 'cuda'
   
   facenet = Backbone().eval().requires_grad_(False).to(device)
-  Checkpointer(facenet).load_state_dict_from_file(cfg.face_model_pkl)
+  Checkpointer(facenet).load_state_dict_from_file(face_model_pkl)
   
   
   content_path_list = tl2_utils.get_filelist_recursive(content_dir, )
@@ -67,12 +66,26 @@ def main(
 
   id_retrieval = (min_idx == label_id).float().sum() / len(label_id)
   
-  print(f"\nID_retrieval (top1): {id_retrieval * 100:.2f}%")
+  print_str = f"\nID_retrieval (top1): {id_retrieval * 100:.2f}%\n"
   if threshold is not None:
     min_idx[minimum > threshold] = -1  # if no match, set idx to -1
     id_retrieval = (min_idx == label_id).float().sum() / len(label_id)
-    print(f"ID_retrieval (thresh {threshold}): {id_retrieval * 100:.2f}%")
+    print_str += f"ID_retrieval (thresh {threshold}): {id_retrieval * 100:.2f}%\n"
     
+  if enable_fid:
+    metrics_dict = torch_fidelity.calculate_metrics(
+      input1=transfer_root,
+      input2=style_dir,
+      cuda=True,
+      isc=False,
+      fid=True,
+      kid=False,
+      verbose=True,
+      samples_find_deep=True
+    )
+    print_str += f"FID: {metrics_dict['frechet_inception_distance']}"
+  
+  print(print_str)
   pass
 
 

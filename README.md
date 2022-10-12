@@ -2,6 +2,35 @@
 
 ## Quick start
 
+### Prepare data
+
+Please refer to the `datasets` folder.
+
+```text
+tree datasets
+
+datasets/
+├── content
+│   ├── id1.jpg
+│   ├── id2.jpg
+│   └── xxx.jpg
+└── transfer
+│   ├── id1
+│   │   ├── xxx.jpg
+│   │   ├── xxx.jpg
+│   ├── id2
+│   │   ├── xxx.jpg
+│   │   ├── xxx.jpg
+│   ├── xxx
+│   │   ├── xxx.jpg
+│   │   ├── xxx.jpg
+└── style (optional, for fid)
+    ├── xxx.jpg
+    └── xxx.jpg
+```
+
+## Computing ID retrieval and FID (optional)
+
 ```bash
 pip install -r requirements.txt
 
