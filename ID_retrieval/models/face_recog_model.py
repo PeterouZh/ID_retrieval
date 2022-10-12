@@ -152,8 +152,12 @@ class Backbone(Module):
   def resize_func(self,
                   x,
                   size=(112, 112)):
+    
+    if tuple(x.shape[-2:]) != size:
+      out = F.interpolate(x, size=size, mode='bilinear', antialias=True) # antialias is important for downsampling.
+    else:
+      out = x
       
-    out = F.interpolate(x, size=size, mode='bilinear', antialias=True) # antialias is important for downsampling.
     return out
   
   def forward(self,
@@ -165,6 +169,9 @@ class Backbone(Module):
     
     - fea: (b, 512) norm = 1; diff(e1, e2) = L2(e1, e2)
     """
+    
+    x = self.resize_func(x)
+    
     x = self.input_layer(x)
     x = self.body(x)
     x = self.output_layer(x)

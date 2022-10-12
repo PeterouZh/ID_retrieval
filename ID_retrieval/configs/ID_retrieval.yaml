@@ -4,3 +4,14 @@ face_model_pkl: &face_model_pkl "cache_pretrained/pretrained/model_ir_se50.pth"
 
 _build_face_recog_net:
   face_model_pkl: *face_model_pkl
+
+eval:
+  content_dir: "datasets/content"
+  transfer_root: "datasets/transfer"
+  face_model_pkl: *face_model_pkl
+  threshold: 1.5
+  enable_fid: true
+  style_dir: "datasets/style"
+
+
+

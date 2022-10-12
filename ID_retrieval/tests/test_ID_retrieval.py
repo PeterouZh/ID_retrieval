@@ -68,8 +68,8 @@ class Testing_ID_retrieval(unittest.TestCase):
 
     from tl2.proj.fvcore.checkpoint import Checkpointer
     from ID_retrieval.models.face_recog_model import Backbone
-    
-    facenet = Backbone()
+
+    facenet = Backbone().eval().requires_grad_(False)
     Checkpointer(facenet).load_state_dict_from_file(cfg.face_model_pkl)
     
     pass
