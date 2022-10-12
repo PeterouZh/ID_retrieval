@@ -1,0 +1,6 @@
+
+
+face_model_pkl: &face_model_pkl "cache_pretrained/pretrained/model_ir_se50.pth"
+
+_build_face_recog_net:
+  face_model_pkl: *face_model_pkl
