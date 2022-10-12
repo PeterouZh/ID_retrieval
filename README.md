@@ -29,6 +29,19 @@ datasets/
     └── xxx.jpg
 ```
 
+### Prepare model
+
+Download face recognition model [model_ir_se50.pth](https://github.com/TreB1eN/InsightFace_Pytorch#2-pretrained-models--performance).
+Put `model_ir_se50.pth` in `cache_pretrained/pretrained`.
+
+```text
+tree cache_pretrained
+
+cache_pretrained/
+└── pretrained
+    └── model_ir_se50.pth
+```
+
 ### Computing ID retrieval and FID 
 
 ```bash
