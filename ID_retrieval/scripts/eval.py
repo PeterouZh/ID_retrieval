@@ -66,11 +66,11 @@ def main(
 
   id_retrieval = (min_idx == label_id).float().sum() / len(label_id)
   
-  print_str = f"\nID_retrieval (top1): {id_retrieval * 100:.2f}%\n"
+  print_str = f"\n{'ID_retrieval (top1)':<30}: {id_retrieval * 100:.2f}%\n"
   if threshold is not None:
     min_idx[minimum > threshold] = -1  # if no match, set idx to -1
     id_retrieval = (min_idx == label_id).float().sum() / len(label_id)
-    print_str += f"ID_retrieval (thresh {threshold}): {id_retrieval * 100:.2f}%\n"
+    print_str += f"{'ID_retrieval (thresh ' + str(threshold) + ')':<30}: {id_retrieval * 100:.2f}%\n"
     
   if enable_fid:
     metrics_dict = torch_fidelity.calculate_metrics(
@@ -83,13 +83,10 @@ def main(
       verbose=True,
       samples_find_deep=True
     )
-    print_str += f"FID: {metrics_dict['frechet_inception_distance']}"
+    print_str += f"{'FID':<30}: {metrics_dict['frechet_inception_distance']:.2f}"
   
   print(print_str)
   pass
-
-
-
 
 
 if __name__ == '__main__':

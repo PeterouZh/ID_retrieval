@@ -34,10 +34,16 @@ datasets/
 ```bash
 pip install -r requirements.txt
 
-
+python ID_retrieval/scripts/eval.py
 
 ```
+Results:
+```text
+ID_retrieval (top1)           : 100.00%
+ID_retrieval (thresh 1.5)     : 68.75%
+FID                           : 229.58
 
+```
 
 
 ## References
