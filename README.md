@@ -29,7 +29,7 @@ datasets/
     └── xxx.jpg
 ```
 
-## Computing ID retrieval and FID (optional)
+## Computing ID retrieval and FID 
 
 ```bash
 pip install -r requirements.txt
