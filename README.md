@@ -1,8 +1,13 @@
 # ID_retrieval
 
+ID retrieval is a quantitative criterion to measure the performance of face stylization algorithms. Specifically, it leverages a pre-trained face recognition model to measure the similarity between stylized images and content images. 
+
+**How to calculate ID retrieval:**
+*We select the first $100$ images of CelebA-HQ as content images, which are not seen by the face toonify model during training. We randomly synthesize $50$ stylized images for each content image, so there are $5000$ stylized images in total. We use a pre-trained face recognition network to extract face identity vectors for content and stylized images. For each stylized image, we search for its nearest face in the content images and check if the nearest face matches the original content face. The distance adopts the Euclidean distance between the face identity vectors. ID retrieval is the accuracy rate calculated by the proportion of successfully matched images to all stylized images.*
+
 ## Quick start
 
-### Prepare data
+### Dataset structure
 
 Please refer to the `datasets` folder.
 
@@ -29,7 +34,7 @@ datasets/
     └── xxx.jpg
 ```
 
-### Prepare model
+### Prepare face recognition model
 
 Download face recognition model [model_ir_se50.pth](https://github.com/TreB1eN/InsightFace_Pytorch#2-pretrained-models--performance).
 Put `model_ir_se50.pth` in `cache_pretrained/pretrained`.
@@ -42,7 +47,7 @@ cache_pretrained/
     └── model_ir_se50.pth
 ```
 
-### Computing ID retrieval and FID 
+### Computing ID retrieval
 
 ```bash
 pip install -r requirements.txt
@@ -57,7 +62,7 @@ ID_retrieval (thresh 1.5)     : 68.75%
 FID                           : 229.58
 
 ```
-
+ID_retrieval (top1) is the final result. Please refer to `ID_retrieval/scripts/eval.py` for more details. 
 
 ## References
 
